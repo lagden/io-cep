@@ -1,0 +1,36 @@
+{
+  "name": "io-cep",
+  "version": "0.1.0",
+  "description": "Search address using zip code through Correios's form",
+  "license": "MIT",
+  "repository": "lagden/io-cep",
+  "author": {
+    "name": "Thiago Lagden",
+    "email": "lagden@gmail.com",
+    "url": "lagden.in"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "cep",
+    "lib",
+    "search",
+    "zipcode",
+    "brasil"
+  ],
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "iconv": "^2.1.7",
+    "request": "^2.55.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
