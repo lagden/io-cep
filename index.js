@@ -37,7 +37,19 @@ function cleanup(data, key) {
   }
 }
 
-module.exports = function(cep, callback) {
+/**
+ * Consulta.
+ *
+ * @param {string} cep - Zip code of the location.
+ * @param {function} cb - Callback function.
+ */
+function consulta(cep, cb) {
+  if (typeof cep !== 'string') {
+    throw new TypeError('CEP must be a string');
+  }
+  if (typeof cb !== 'function') {
+    throw new TypeError('Callback must be a function');
+  }
   var formData = {
     'form': {
       'cepEntrada': cep,
@@ -61,16 +73,18 @@ module.exports = function(cep, callback) {
           if (data.hasOwnProperty('endere\u00E7o')) {
             data.logradouro = data['endere\u00E7o'];
           }
-          callback(null, data);
+          cb(null, data);
         } else {
-          callback(null, {
+          cb(null, {
             'success': false,
-            'message': 'CEP not found or parse error.'
+            'message': 'CEP not found or parse error'
           });
         }
       } else {
-        callback(err, null);
+        cb(err, null);
       }
     }
   );
-};
+}
+
+module.exports = consulta;

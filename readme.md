@@ -16,10 +16,16 @@ $ npm install --save io-cep
 var ioCep = require('io-cep');
 
 ioCep('01310-940', function(err, res){
-  if(err)
+  if(err) {
     throw err;
-  process.stdout.write(res.logradouro + '\n');
-  //=> Avenida Paulista
+  }
+  if(res.success) {
+    process.stdout.write(res.logradouro + '\n');
+    //=> Avenida Paulista
+  } else {
+    process.stdout.write(res.message + '\n');
+    //=> CEP not found or parse error.
+  }
 });
 ```
 
@@ -35,10 +41,18 @@ Type: `string`
 
 zip code the desired address.
 
-#### callback
+#### callback(err, res)
 
 *Required*  
-Type: `function`  
+Type: `function`
+
+###### err
+
+`Error` object with HTTP status code as `code` property.
+
+###### res
+
+The response object
 
 
 ## License
