@@ -31,6 +31,12 @@ function parse(html) {
   return (tmpKeys.length > 0) ? tmp : null;
 }
 
+function cleanup(data, key) {
+  if (data.hasOwnProperty(key)) {
+    data[key] = data[key].split(/(, [\d]+)|( - de )/)[0];
+  }
+}
+
 module.exports = function(cep, callback) {
   var formData = {
     'form': {
@@ -49,9 +55,18 @@ module.exports = function(cep, callback) {
         var buf = iconv.convert(body).toString('utf-8');
         var data = parse(buf);
         if (data) {
+          data.success = true;
+          cleanup(data, 'logradouro');
+          cleanup(data, 'endere\u00E7o');
+          if (data.hasOwnProperty('endere\u00E7o')) {
+            data.logradouro = data['endere\u00E7o'];
+          }
           callback(null, data);
         } else {
-          callback(new Error('Falha no parse'), null);
+          callback(null, {
+            'success': false,
+            'message': 'CEP not found or parse error.'
+          });
         }
       } else {
         callback(err, null);

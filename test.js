@@ -7,20 +7,22 @@ var ioCep = require('./');
 describe('Consulta', function() {
   describe('valid CEP', function() {
     it('should return a valid address', function(done) {
-      ioCep('04653-055', function(err, res) {
+      ioCep('01310-940', function(err, res) {
         if (err) {
           throw err;
         }
-        assert.strictEqual(res.logradouro.toString(), 'Rua Am\u00E1lia Cerelo Godespoti');
+        assert.ok(res.success);
+        assert.strictEqual(res.logradouro, 'Avenida Paulista');
         done();
       });
     });
   });
 
   describe('invalid CEP', function() {
-    it('should return a error', function(done) {
+    it('should return a invalid address', function(done) {
       ioCep('00000-000', function(err, res) {
-        assert.strictEqual(err.message.toString(), 'Falha no parse');
+        assert.ok(!res.success);
+        assert.strictEqual(res.message, 'CEP not found or parse error.');
         done();
       });
     });
