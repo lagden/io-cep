@@ -48,11 +48,11 @@ Type: `function`
 
 ###### err
 
-`Error` object with HTTP status code as `code` property.
+`Error` object.
 
 ###### res
 
-The response object
+Response object.
 
 
 ## License
