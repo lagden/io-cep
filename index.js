@@ -16,8 +16,8 @@ function parse(html) {
 
   for (var i = 0, len = $respostas.length; i < len; i++) {
     var $el = $($respostas[i]);
-    var key = String($el.text()).trim().replace(':', '').replace('/', '-');
-    var value = String($el.next('.respostadestaque').text()).trim();
+    var key = $el.text().trim().replace(':', '').replace('/', '-');
+    var value = $el.next('.respostadestaque').text().trim();
     if (key.indexOf('Localidade') !== -1) {
       var keys = key.split('-');
       var values = value.replace(/[\n\t]+/g, '').split('/');
