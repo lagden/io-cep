@@ -21,17 +21,20 @@ $ npm install --save io-cep
 ```js
 var consulta = require('io-cep');
 
-consulta('01310-940', function(err, res){
-  if(err) {
-    throw err;
-  }
-  if(res.success) {
-    process.stdout.write(res.logradouro + '\n');
-    //=> Avenida Paulista
-  } else {
-    process.stdout.write(res.message + '\n');
-    //=> CEP not found or parse error.
-  }
+consulta('01310-940')
+  .then(function(res){
+    if(res.success) {
+      process.stdout.write(res.logradouro + '\n');
+      //=> Avenida Paulista
+    } else {
+      process.stdout.write(res.message + '\n');
+      //=> CEP not found or parse error.
+    }
+  })
+  .catch(function(err){
+    process.stdout.write(err.message + '\n');
+    //=> CEP must be a string
+  });
 });
 ```
 
@@ -50,7 +53,7 @@ CEP of the address desired.
 
 ## Dev
 
-The code is written in ES6.
+The code was written in ES6 and converted via [babel](https://babeljs.io/).
 
 ### Build
 
