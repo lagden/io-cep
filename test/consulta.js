@@ -1,6 +1,7 @@
 /* global describe, it */
 
 'use strict';
+
 import ioCep from '../es6/index';
 
 describe('Consulta', function() {
