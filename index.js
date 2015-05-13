@@ -1,90 +1,66 @@
-/* global module, require */
-
 'use strict';
 
-var cheerio = require('cheerio');
-var request = require('request');
-var Iconv = require('iconv').Iconv;
-var iconv = new Iconv('iso-8859-1', 'utf-8');
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-function parse(html) {
-  var $, $respostas, tmp, tmpKeys;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-  $ = cheerio.load(html);
-  tmp = {};
-  $respostas = $('.resposta');
+var _request = require('request');
 
-  for (var i = 0, len = $respostas.length; i < len; i++) {
-    var $el = $($respostas[i]);
-    var key = $el.text().trim().replace(':', '').replace('/', '-');
-    var value = $el.next('.respostadestaque').text().trim();
-    if (key.indexOf('Localidade') !== -1) {
-      var keys = key.split('-');
-      var values = value.replace(/[\n\t]+/g, '').split('/');
-      tmp[keys[0].trim().toLowerCase()] = values[0].trim();
-      tmp[keys[1].trim().toLowerCase()] = values[1].trim();
-    } else {
-      tmp[key.toLowerCase()] = value;
-    }
-  }
-  tmpKeys = Object.keys(tmp);
-  return (tmpKeys.length > 0) ? tmp : null;
-}
+var _request2 = _interopRequireDefault(_request);
 
-function cleanup(data, key) {
-  if (data.hasOwnProperty(key)) {
-    data[key] = data[key].split(/(, [\d]+)|( - de )/)[0];
-  }
-}
+var _iconvLite = require('iconv-lite');
+
+var _iconvLite2 = _interopRequireDefault(_iconvLite);
+
+var _libUtility = require('./lib/utility');
+
+'use strict';
 
 /**
  * Consulta.
  *
  * @param {string} cep - Zip code of the location.
- * @param {function} cb - Callback function.
  */
-function consulta(cep, cb) {
-  if (typeof cep !== 'string') {
-    throw new TypeError('CEP must be a string');
-  }
-  if (typeof cb !== 'function') {
-    throw new TypeError('Callback must be a function');
-  }
-  var formData = {
-    'form': {
-      'cepEntrada': cep,
-      'tipoCep': '',
-      'cepTemp': '',
-      'metodo': 'buscarCep'
-    },
-    'encoding': null
-  };
-  request.post(
-    'http://m.correios.com.br/movel/buscaCepConfirma.do',
-    formData,
-    function(err, res, body) {
+function consulta(cep) {
+  return new Promise(function (resolve, reject) {
+    if (typeof cep !== 'string') {
+      throw new TypeError('CEP must be a string');
+    }
+    var formData = {
+      'form': {
+        'cepEntrada': cep,
+        'tipoCep': '',
+        'cepTemp': '',
+        'metodo': 'buscarCep'
+      },
+      'encoding': null,
+      'timeout': 4500
+    };
+    _request2['default'].post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData, function (err, res, body) {
       if (!err && res.statusCode === 200) {
-        var buf = iconv.convert(body).toString('utf-8');
-        var data = parse(buf);
+        var data = (0, _libUtility.parse)(_iconvLite2['default'].decode(body, 'ISO-8859-1'));
         if (data) {
           data.success = true;
-          cleanup(data, 'logradouro');
-          cleanup(data, 'endere\u00E7o');
-          if (data.hasOwnProperty('endere\u00E7o')) {
-            data.logradouro = data['endere\u00E7o'];
+          data = (0, _libUtility.cleanup)(data, 'logradouro');
+          data = (0, _libUtility.cleanup)(data, 'endereço');
+          if (data.hasOwnProperty('endereço')) {
+            data.logradouro = data['endereço'];
           }
-          cb(null, data);
+          resolve(data);
         } else {
-          cb(null, {
+          resolve({
             'success': false,
             'message': 'CEP not found or parse error'
           });
         }
       } else {
-        cb(err, null);
+        reject(err);
       }
-    }
-  );
+    });
+  });
 }
 
-module.exports = consulta;
+exports['default'] = consulta;
+module.exports = exports['default'];

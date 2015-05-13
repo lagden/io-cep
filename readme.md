@@ -2,6 +2,12 @@
 
 > Search address using zip code through Correios's form
 
+**io-cep** is supported in all versions of [io.js](https://iojs.org/) without any flags.
+
+To use **io-cep** with [node.js](https://nodejs.org/), you must be running 
+node 0.12 or higher for generator and promise support, and must run 
+node(1) with the `--harmony` flag.
+
 
 ## Install
 
@@ -13,9 +19,9 @@ $ npm install --save io-cep
 ## Usage
 
 ```js
-var ioCep = require('io-cep');
+var consulta = require('io-cep');
 
-ioCep('01310-940', function(err, res){
+consulta('01310-940', function(err, res){
   if(err) {
     throw err;
   }
@@ -32,27 +38,25 @@ ioCep('01310-940', function(err, res){
 
 ## API
 
-### ioCep(input, callback)
+### consulta(cep)
 
-#### input
+#### cep
 
 *Required*  
 Type: `string`
 
-zip code the desired address.
+CEP of the address desired.
 
-#### callback(err, res)
 
-*Required*  
-Type: `function`
+## Dev
 
-###### err
+The code is written in ES6.
 
-`Error` object.
+### Build
 
-###### res
-
-Response object.
+```
+$ npm test && npm run build
+```
 
 
 ## License
