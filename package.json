@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Search address using zip code through Correios's form",
   "license": "MIT",
   "repository": "lagden/io-cep",
@@ -17,11 +17,8 @@
     "build": "babel es6 --out-dir ./"
   },
   "main": "index.js",
-  "files": [
-    "index.js"
-  ],
   "directories" : {
-    "lib" : "lib"
+    "lib": "./lib"
   },
   "keywords": [
     "cep",
