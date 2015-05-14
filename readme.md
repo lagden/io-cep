@@ -13,46 +13,36 @@ $ npm install --save io-cep
 ## Usage
 
 ```js
-var ioCep = require('io-cep');
+var consulta = require('io-cep');
 
-ioCep('01310-940', function(err, res){
-  if(err) {
-    throw err;
-  }
-  if(res.success) {
-    process.stdout.write(res.logradouro + '\n');
-    //=> Avenida Paulista
-  } else {
-    process.stdout.write(res.message + '\n');
-    //=> CEP not found or parse error.
-  }
+consulta('01310-940')
+  .then(function(res){
+    if(res.success) {
+      process.stdout.write(res.logradouro + '\n');
+      //=> Avenida Paulista
+    } else {
+      process.stdout.write(res.message + '\n');
+      //=> CEP not found or parse error.
+    }
+  })
+  .catch(function(err){
+    process.stdout.write(err.message + '\n');
+    //=> CEP must be a string
+  });
 });
 ```
 
 
 ## API
 
-### ioCep(input, callback)
+### consulta(cep)
 
-#### input
+#### cep
 
 *Required*  
 Type: `string`
 
-zip code the desired address.
-
-#### callback(err, res)
-
-*Required*  
-Type: `function`
-
-###### err
-
-`Error` object.
-
-###### res
-
-Response object.
+CEP of the address desired.
 
 
 ## License
