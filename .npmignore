@@ -1,2 +1,10 @@
 test
 es6
+.editorconfig
+.git*
+.jshintrc
+.travis*
+
+# don't ignore .npmignore files
+# these are used in some tests.
+!.npmignore
