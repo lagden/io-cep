@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Search address using zip code through Correios's form",
   "license": "MIT",
   "repository": "lagden/io-cep",
@@ -15,9 +15,10 @@
   "scripts": {
     "test": "mocha"
   },
-  "files": [
-    "index.js"
-  ],
+  "main": "index.js",
+  "directories": {
+    "lib": "./lib"
+  },
   "keywords": [
     "cep",
     "lib",
@@ -26,11 +27,13 @@
     "brasil"
   ],
   "dependencies": {
-    "cheerio": "^0.19.0",
-    "iconv": "^2.1.7",
-    "request": "^2.55.0"
+    "cheerio": "~0.19.0",
+    "iconv-lite": "~0.4.8",
+    "promise": "~7.0.1",
+    "request": "~2.55.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "should": "*"
   }
 }
