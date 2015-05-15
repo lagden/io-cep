@@ -51,6 +51,23 @@ Type: `string`
 CEP of the address desired.
 
 
+## CLI
+
+#### Install
+
+**io-cep** works well with standard input.
+
+```
+$ npm install -g io-cep
+```
+
+#### Usage
+
+```
+$ io-cep 01310-940
+```
+
+
 ## Dev
 
 The code was written in ES6 and converted to ES5 
@@ -61,6 +78,8 @@ via [babel](https://babeljs.io/).
 ```
 $ npm test && npm run build
 ```
+
+After transpiled, the refinement is done in hand.
 
 
 ## License

@@ -10,24 +10,27 @@ import {parse, cleanup} from './lib/utility';
  * @param {string} cep - Zip code of the location.
  */
 function consulta(cep) {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     if (typeof cep !== 'string') {
-      throw new TypeError('CEP must be a string');
+      throw new Error('Must be a string');
+    }
+    if (/^(\d{5})\-?(\d{3})$/.test(cep) === false) {
+      throw new Error('Invalid format');
     }
     let formData = {
-      'form': {
-        'cepEntrada': cep,
-        'tipoCep': '',
-        'cepTemp': '',
-        'metodo': 'buscarCep'
+      form: {
+        cepEntrada: cep,
+        tipoCep: '',
+        cepTemp: '',
+        metodo: 'buscarCep',
       },
-      'encoding': null,
-      'timeout': 4500
+      encoding: null,
+      timeout: 4500,
     };
     request.post(
       'http://m.correios.com.br/movel/buscaCepConfirma.do',
       formData,
-      function(err, res, body) {
+      (err, res, body) => {
         if (!err && res.statusCode === 200) {
           let data = parse(iconv.decode(body, 'ISO-8859-1'));
           if (data) {
@@ -40,8 +43,8 @@ function consulta(cep) {
             resolve(data);
           } else {
             resolve({
-              'success': false,
-              'message': 'CEP not found or parse error'
+              success: false,
+              message: 'CEP not found or parse error',
             });
           }
         } else {

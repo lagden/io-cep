@@ -9,7 +9,7 @@ function parse(html) {
   tmp = {};
   $respostas = $('.resposta');
 
-  Array.prototype.forEach.call($respostas, function(resposta){
+  Array.prototype.forEach.call($respostas, (resposta) => {
     let keys, values;
     let $el = $(resposta);
     let key = $el.text().trim().replace(':', '').replace('/', '-');

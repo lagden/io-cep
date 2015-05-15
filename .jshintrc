@@ -4,10 +4,11 @@
   "expr": true,
   "bitwise": true,
   "curly": true,
-  "immed": true,
+  "immed": false,
   "newcap": true,
   "noarg": true,
   "undef": true,
   "unused": "vars",
-  "strict": true
+  "strict": true,
+  "indent": 2
 }

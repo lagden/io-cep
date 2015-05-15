@@ -1,0 +1,14 @@
+{
+  "preset": "node-style-guide",
+  "validateIndentation": 2,
+  "esnext": true,
+  "validateQuoteMarks": {
+    "mark": "'",
+    "escape": true
+  },
+  "disallowAnonymousFunctions": true,
+  "disallowQuotedKeysInObjects": "allButReserved",
+  "requireCapitalizedComments": {
+    "allExcept": ["jshint", "global"]
+  }
+}
