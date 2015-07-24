@@ -30,7 +30,7 @@ function parse(html) {
 
 function cleanup(data, key) {
   if (data.hasOwnProperty(key)) {
-    data[key] = data[key].split(/(, [\d]+)|( - de )/)[0];
+    data[key] = data[key].split(/(, [\d]+)|( - de )|( - lado )/)[0];
   }
   return data;
 }
