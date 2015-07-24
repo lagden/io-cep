@@ -25,7 +25,7 @@ function consulta(cep) {
         metodo: 'buscarCep',
       },
       encoding: null,
-      timeout: 4500,
+      timeout: 5000,
     };
     request.post(
       'http://m.correios.com.br/movel/buscaCepConfirma.do',
@@ -45,10 +45,15 @@ function consulta(cep) {
             resolve({
               success: false,
               message: 'CEP not found or parse error',
+              cep: cep,
             });
           }
         } else {
-          reject(err);
+          resolve({
+            success: false,
+            message: 'Request timemout',
+            cep: cep,
+          });
         }
       }
     );
