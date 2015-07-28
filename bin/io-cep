@@ -2,13 +2,18 @@
 
 'use strict';
 
-var program  = require('commander');
-var Table    = require('cli-table');
-var chalk    = require('chalk');
-var pkg      = require('../package.json');
+var program = require('commander');
+var Table = require('cli-table');
+var chalk = require('chalk');
+var pkg = require('../package.json');
 var consulta = require('../.');
 
 var error = chalk.bold.red;
+
+function fail(err) {
+  process.stdout.write(error('\u2716 ') + err.message + '\n');
+  process.exit(1);
+}
 
 program
   .version(pkg.version)
@@ -30,10 +35,7 @@ program
         process.stdout.write(table.toString() + '\n');
         process.exit();
       })
-      .catch(function fail(err) {
-        process.stdout.write(error('\u2716 ') + err.message + '\n');
-        process.exit(1);
-      });
+      .catch(fail);
   })
   .parse(process.argv);
 
