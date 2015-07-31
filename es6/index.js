@@ -4,40 +4,36 @@ import got from 'got';
 import iconv from 'iconv-lite';
 import {parse, cleanup} from './lib/utility';
 
-function sucesso(cep, res) {
-  let data;
+function getData(msg, cep, success = false) {
+  return {
+    success: success,
+    message: msg,
+    cep: cep,
+  };
+}
+
+function sucesso(res, cep) {
+  let data = getData(`Status code is ${res.statusCode}`, cep);
   if (res.statusCode === 200) {
-    data = parse(iconv.decode(res._buffer, 'iso-8859-1'));
-    if (data) {
-      data.success = true;
-      data = cleanup(data, 'logradouro');
-      data = cleanup(data, 'endere\u00E7o');
-      if (data.hasOwnProperty('endere\u00E7o')) {
-        data.logradouro = data['endere\u00E7o'];
+    let newData = parse(iconv.decode(res._buffer, 'iso-8859-1'));
+    if (newData) {
+      newData.reqCep = cep;
+      newData.success = true;
+      newData = cleanup(newData, 'logradouro');
+      newData = cleanup(newData, 'endere\u00E7o');
+      if (newData.hasOwnProperty('endere\u00E7o')) {
+        newData.logradouro = newData['endere\u00E7o'];
       }
+      data = newData;
     } else {
-      data = {
-        success: false,
-        message: 'CEP not found or parse error',
-        cep: cep,
-      };
+      data.message = 'CEP not found or parse error';
     }
-  } else {
-    data = {
-      success: false,
-      message: `Status code is ${res.statusCode}`,
-      cep: cep,
-    };
   }
   return Promise.resolve(data);
 }
 
-function falha(cep, err) {
-  return Promise.resolve({
-    success: false,
-    message: err,
-    cep: cep,
-  });
+function falha(err, cep) {
+  return Promise.resolve(getData(err, cep));
 }
 
 /**
@@ -63,8 +59,8 @@ function consulta(cep) {
   };
   return got
     .post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData)
-    .then(sucesso.bind(sucesso, cep))
-    .catch(falha.bind(falha, cep));
+    .then((res) => sucesso(res, cep))
+    .catch((err) => falha(err, cep));
 }
 
 export default consulta;

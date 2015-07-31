@@ -16,8 +16,12 @@ var _libUtility = require('./lib/utility');
 
 'use strict';
 
-function sucesso(cep, res) {
-  var data = undefined;
+function sucesso(res, cep) {
+  var data = {
+    success: false,
+    message: 'Status code is ' + res.statusCode,
+    cep: cep
+  };
   if (res.statusCode === 200) {
     data = (0, _libUtility.parse)(_iconvLite2.default.decode(res._buffer, 'iso-8859-1'));
     if (data) {
@@ -34,17 +38,11 @@ function sucesso(cep, res) {
         cep: cep
       };
     }
-  } else {
-    data = {
-      success: false,
-      message: 'Status code is ' + res.statusCode,
-      cep: cep
-    };
   }
   return Promise.resolve(data);
 }
 
-function falha(cep, err) {
+function falha(err, cep) {
   return Promise.resolve({
     success: false,
     message: err,
@@ -68,7 +66,11 @@ function consulta(cep) {
     },
     timeout: 10000
   };
-  return _got2.default.post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData).then(sucesso.bind(sucesso, cep)).catch(falha.bind(falha, cep));
+  return _got2.default.post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData).then(function (res) {
+    return sucesso(res, cep);
+  }).catch(function (err) {
+    return falha(err, cep);
+  });
 }
 
 exports.default = consulta;
