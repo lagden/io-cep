@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Search address using zip code through Correios's form",
   "license": "MIT",
   "repository": "lagden/io-cep",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "mocha --compilers js:babel/register --reporter spec --require should",
-    "build": "babel --whitelist spec,es6.modules,es6.blockScoping,es6.arrowFunctions,es6.templateLiterals --modules common --no-comments es6 --out-dir ./"
+    "build": "babel --stage 1 --modules common --no-comments es6 --out-dir ./"
   },
   "main": "index.js",
   "bin": "./bin/io-cep",

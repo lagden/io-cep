@@ -1,3 +1,5 @@
+'use strict';
+
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
@@ -14,9 +16,9 @@ var _iconvLite2 = _interopRequireDefault(_iconvLite);
 
 var _libUtility = require('./lib/utility');
 
-'use strict';
+function getData(msg, cep) {
+  var success = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 
-function getData(msg, cep, success = false) {
   return {
     success: success,
     message: msg,
@@ -27,14 +29,14 @@ function getData(msg, cep, success = false) {
 function sucesso(res, cep) {
   var data = getData('Status code is ' + res.statusCode, cep);
   if (res.statusCode === 200) {
-    var newData = (0, _libUtility.parse)(_iconvLite2.default.decode(res._buffer, 'iso-8859-1'));
+    var newData = (0, _libUtility.parse)(_iconvLite2['default'].decode(res._buffer, 'iso-8859-1'));
     if (newData) {
       newData.success = true;
       newData.reqCep = cep;
       newData = (0, _libUtility.cleanup)(newData, 'logradouro');
-      newData = (0, _libUtility.cleanup)(newData, 'endere\u00E7o');
-      if (newData.hasOwnProperty('endere\u00E7o')) {
-        newData.logradouro = newData['endere\u00E7o'];
+      newData = (0, _libUtility.cleanup)(newData, 'endereço');
+      if (newData.hasOwnProperty('endereço')) {
+        newData.logradouro = newData['endereço'];
       }
       data = newData;
     } else {
@@ -64,12 +66,12 @@ function consulta(cep) {
     },
     timeout: 10000
   };
-  return _got2.default.post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData).then(function (res) {
+  return _got2['default'].post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData).then(function (res) {
     return sucesso(res, cep);
-  }).catch(function (err) {
+  })['catch'](function (err) {
     return falha(err, cep);
   });
 }
 
-exports.default = consulta;
-module.exports = exports.default;
+exports['default'] = consulta;
+module.exports = exports['default'];
