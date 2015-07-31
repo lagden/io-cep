@@ -17,8 +17,8 @@ function sucesso(res, cep) {
   if (res.statusCode === 200) {
     let newData = parse(iconv.decode(res._buffer, 'iso-8859-1'));
     if (newData) {
-      newData.reqCep = cep;
       newData.success = true;
+      newData.reqCep = cep;
       newData = cleanup(newData, 'logradouro');
       newData = cleanup(newData, 'endere\u00E7o');
       if (newData.hasOwnProperty('endere\u00E7o')) {

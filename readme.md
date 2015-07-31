@@ -2,13 +2,6 @@
 
 > Search address using zip code through Correios's form
 
-**io-cep** is supported in all versions of [io.js](https://iojs.org/) without any flags.
-
-To use **io-cep** with [node.js](https://nodejs.org/), you must be running 
-node 0.12 or higher for generator and promise support, and must run 
-node with the `--harmony` flag.
-
-
 ## Install
 
 ```
@@ -76,7 +69,7 @@ via [babel](https://babeljs.io/).
 ### Build
 
 ```
-$ npm test && npm run build
+$ npm test; npm run build
 ```
 
 After transpiled, the refinement is done in hand.

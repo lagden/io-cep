@@ -16,38 +16,36 @@ var _libUtility = require('./lib/utility');
 
 'use strict';
 
-function sucesso(res, cep) {
-  var data = {
-    success: false,
-    message: 'Status code is ' + res.statusCode,
+function getData(msg, cep, success = false) {
+  return {
+    success: success,
+    message: msg,
     cep: cep
   };
+}
+
+function sucesso(res, cep) {
+  var data = getData('Status code is ' + res.statusCode, cep);
   if (res.statusCode === 200) {
-    data = (0, _libUtility.parse)(_iconvLite2.default.decode(res._buffer, 'iso-8859-1'));
-    if (data) {
-      data.success = true;
-      data = (0, _libUtility.cleanup)(data, 'logradouro');
-      data = (0, _libUtility.cleanup)(data, 'endere\u00E7o');
-      if (data.hasOwnProperty('endere\u00E7o')) {
-        data.logradouro = data['endere\u00E7o'];
+    var newData = (0, _libUtility.parse)(_iconvLite2.default.decode(res._buffer, 'iso-8859-1'));
+    if (newData) {
+      newData.success = true;
+      newData.reqCep = cep;
+      newData = (0, _libUtility.cleanup)(newData, 'logradouro');
+      newData = (0, _libUtility.cleanup)(newData, 'endere\u00E7o');
+      if (newData.hasOwnProperty('endere\u00E7o')) {
+        newData.logradouro = newData['endere\u00E7o'];
       }
+      data = newData;
     } else {
-      data = {
-        success: false,
-        message: 'CEP not found or parse error',
-        cep: cep
-      };
+      data.message = 'CEP not found or parse error';
     }
   }
   return Promise.resolve(data);
 }
 
 function falha(err, cep) {
-  return Promise.resolve({
-    success: false,
-    message: err,
-    cep: cep
-  });
+  return Promise.resolve(getData(err, cep));
 }
 
 function consulta(cep) {
