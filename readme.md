@@ -2,10 +2,11 @@
 
 > Search address using zip code through Correios's form
 
+
 ## Install
 
 ```
-$ npm install --save io-cep
+$ npm i -S io-cep
 ```
 
 
@@ -25,7 +26,7 @@ consulta('01310-940')
     }
   })
   .catch(function(err){
-    process.stdout.write(err.message + '\n');
+    process.stdout.write(err + '\n');
     //=> CEP must be a string
   });
 });
@@ -41,38 +42,7 @@ consulta('01310-940')
 *Required*  
 Type: `string`
 
-CEP of the address desired.
-
-
-## CLI
-
-#### Install
-
-**io-cep** works well with standard input.
-
-```
-$ npm install -g io-cep
-```
-
-#### Usage
-
-```
-$ io-cep 01310-940
-```
-
-
-## Dev
-
-The code was written in ES6 and converted to ES5 
-via [babel](https://babeljs.io/).
-
-### Build
-
-```
-$ npm test; npm run build
-```
-
-After transpiled, the refinement is done in hand.
+CEP of the desired address.
 
 
 ## License

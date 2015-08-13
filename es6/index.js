@@ -18,7 +18,7 @@ function sucesso(res, cep) {
     let newData = parse(iconv.decode(res._buffer, 'iso-8859-1'));
     if (newData) {
       newData.success = true;
-      newData.reqCep = cep;
+      newData.req = cep;
       newData = cleanup(newData, 'logradouro');
       newData = cleanup(newData, 'endere\u00E7o');
       if (newData.hasOwnProperty('endere\u00E7o')) {
@@ -39,14 +39,14 @@ function falha(err, cep) {
 /**
  * Consulta.
  *
- * @param {string} cep - Zip code of the location.
+ * @param {string} cep
  */
 function consulta(cep) {
   if (typeof cep !== 'string') {
-    Promise.reject('Must be a string');
+    return Promise.reject('Must be a string');
   }
   if (/^(\d{5})\-?(\d{3})$/.test(cep) === false) {
-    Promise.reject('Invalid format');
+    return Promise.reject('Invalid format');
   }
   let formData = {
     body: {

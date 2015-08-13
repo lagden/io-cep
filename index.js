@@ -32,7 +32,7 @@ function sucesso(res, cep) {
     var newData = (0, _libUtility.parse)(_iconvLite2['default'].decode(res._buffer, 'iso-8859-1'));
     if (newData) {
       newData.success = true;
-      newData.reqCep = cep;
+      newData.req = cep;
       newData = (0, _libUtility.cleanup)(newData, 'logradouro');
       newData = (0, _libUtility.cleanup)(newData, 'endereço');
       if (newData.hasOwnProperty('endereço')) {
@@ -52,10 +52,10 @@ function falha(err, cep) {
 
 function consulta(cep) {
   if (typeof cep !== 'string') {
-    Promise.reject('Must be a string');
+    return Promise.reject('Must be a string');
   }
   if (/^(\d{5})\-?(\d{3})$/.test(cep) === false) {
-    Promise.reject('Invalid format');
+    return Promise.reject('Invalid format');
   }
   var formData = {
     body: {
