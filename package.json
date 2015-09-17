@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Search address using zip code through Correios's form",
   "license": "MIT",
   "repository": "lagden/io-cep",
@@ -13,8 +13,29 @@
     "node": ">=0.12.0"
   },
   "scripts": {
-    "pretest": "babel --stage 1 --modules common --no-comments es6 --out-dir ./",
-    "test": "mocha --compilers js:babel/register --reporter spec --require should"
+    "pretest": "xo && babel --stage 1 --modules common --no-comments es6 --out-dir ./",
+    "test": "mocha --compilers js:babel/register --reporter spec --require should",
+    "prepublish": "npm test",
+    "start": "watch xo es6 -d -u"
+  },
+  "xo": {
+    "envs": [
+      "es6",
+      "node"
+    ],
+    "esnext": true,
+    "ignores": [
+      "index.js",
+      "lib/**"
+    ],
+    "rules": {
+      "arrow-parens": [2, "as-needed"],
+      "prefer-reflect": [2, {"exceptions": ["call"]}],
+      "new-cap": [2, {
+        "newIsCap": true,
+        "capIsNew": false
+      }]
+    }
   },
   "main": "index.js",
   "directories": {
@@ -29,12 +50,14 @@
   ],
   "dependencies": {
     "cheerio": "^0.19.0",
-    "got": "^4.1.1",
+    "got": "^4.2.0",
     "iconv-lite": "^0.4.11"
   },
   "devDependencies": {
-    "babel": "^5.8.12",
+    "babel": "^5.8.23",
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "watch": "^0.16.0",
+    "xo": "^0.9.0"
   }
 }

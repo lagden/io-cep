@@ -1,6 +1,6 @@
-# io-cep [![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=master)](https://travis-ci.org/lagden/io-cep)
+# io-cep [![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=master)](https://travis-ci.org/lagden/io-cep)[![Awesome](http://cdn.lagden.in/awesome/badge.svg)](https://github.com/lagden/awesome-nodejs)
 
-> Search address using zip code through Correios's form
+> Search address using zip code through Correios
 
 
 ## Install
@@ -42,7 +42,7 @@ consulta('01310-940')
 *Required*  
 Type: `string`
 
-CEP of the desired address.
+zip address
 
 
 ## License
