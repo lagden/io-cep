@@ -1,0 +1,107 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/iojs',
+1 verbose cli   '/Users/lagden/.npm-global/bin/npm',
+1 verbose cli   'publish' ]
+2 info using npm@3.3.5
+3 info using node@v4.2.1
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/lagden/webapps/htdocs/lab/js/module/io-cep',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/lagden/.npm/io-cep/0.5.0/package.tgz not in flight; packing
+9 info lifecycle io-cep@0.5.0~prepublish: io-cep@0.5.0
+10 silly lifecycle io-cep@0.5.0~prepublish: no script for prepublish, continuing
+11 verbose tar pack [ '/Users/lagden/.npm/io-cep/0.5.0/package.tgz',
+11 verbose tar pack   '/Users/lagden/webapps/htdocs/lab/js/module/io-cep' ]
+12 verbose tarball /Users/lagden/.npm/io-cep/0.5.0/package.tgz
+13 verbose folder /Users/lagden/webapps/htdocs/lab/js/module/io-cep
+14 verbose addLocalTarball adding from inside cache /Users/lagden/.npm/io-cep/0.5.0/package.tgz
+15 silly cache afterAdd io-cep@0.5.0
+16 verbose afterAdd /Users/lagden/.npm/io-cep/0.5.0/package/package.json not in flight; writing
+17 verbose afterAdd /Users/lagden/.npm/io-cep/0.5.0/package/package.json written
+18 silly publish { name: 'io-cep',
+18 silly publish   version: '0.5.0',
+18 silly publish   description: 'Search address using zip code through Correios',
+18 silly publish   license: 'MIT',
+18 silly publish   repository: { type: 'git', url: 'git+https://github.com/lagden/io-cep.git' },
+18 silly publish   author:
+18 silly publish    { name: 'Thiago Lagden',
+18 silly publish      email: 'lagden@gmail.com',
+18 silly publish      url: 'lagden.in' },
+18 silly publish   engines: { node: '>=4.0.0' },
+18 silly publish   main: 'index.js',
+18 silly publish   directories: { lib: './lib' },
+18 silly publish   keywords: [ 'cep', 'lib', 'search', 'zipcode', 'brasil' ],
+18 silly publish   scripts: { pretest: 'xo', test: 'nyc ava', start: 'watch xo' },
+18 silly publish   xo:
+18 silly publish    { envs: [ 'es6', 'node' ],
+18 silly publish      esnext: true,
+18 silly publish      rules:
+18 silly publish       { 'arrow-parens': [Object],
+18 silly publish         'prefer-reflect': [Object],
+18 silly publish         'new-cap': [Object] } },
+18 silly publish   dependencies: { cheerio: '^0.19.0', got: '^5.0.0', 'iconv-lite': '^0.4.11' },
+18 silly publish   devDependencies: { ava: '^0.2.0', nyc: '^3.2.2', watch: '^0.16.0', xo: '^0.9.0' },
+18 silly publish   readme: '# io-cep\n[![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)\n[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=master)](https://travis-ci.org/lagden/io-cep)\n[![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep) \n[![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)\n\n> Search address using zip code through Correios\n\n\n## Install\n\n```\n$ npm i --save-dev io-cep\n```\n\n\n## Usage\n\n```javascript\nvar consulta = require(\'io-cep\');\n\nconsulta(\'01310-940\')\n  .then(function(res){\n    if(res.success) {\n      process.stdout.write(res.logradouro + \'\\n\');\n      //=> Avenida Paulista\n    } else {\n      process.stdout.write(res.message + \'\\n\');\n      //=> CEP not found or parse error.\n    }\n  })\n  .catch(function(err){\n    process.stdout.write(err + \'\\n\');\n    //=> CEP must be a string\n  });\n});\n```\n\n\n## API\n\n### consulta(cep)\n\n#### cep\n\n*Required*  \nType: `string`\n\nzip address\n\n\n## License\n\nMIT © [Thiago Lagden](http://lagden.in)\n',
+18 silly publish   readmeFilename: 'readme.md',
+18 silly publish   gitHead: '3e7e8c7eb227f88075a8017ea656e1d2824f6697',
+18 silly publish   bugs: { url: 'https://github.com/lagden/io-cep/issues' },
+18 silly publish   homepage: 'https://github.com/lagden/io-cep#readme',
+18 silly publish   _id: 'io-cep@0.5.0',
+18 silly publish   _shasum: '74b1b79e47168e88c1e5ca86edd51bccbeb52241',
+18 silly publish   _from: '.' }
+19 verbose getPublishConfig undefined
+20 silly mapToRegistry name io-cep
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/io-cep
+24 verbose publish registryBase https://registry.npmjs.org/
+25 silly publish uploading /Users/lagden/.npm/io-cep/0.5.0/package.tgz
+26 verbose request uri https://registry.npmjs.org/io-cep
+27 verbose request sending authorization for write operation
+28 info attempt registry request try #1 at 9:43:09 PM
+29 verbose request id 5784345099b4a63e
+30 http request PUT https://registry.npmjs.org/io-cep
+31 http 403 https://registry.npmjs.org/io-cep
+32 verbose headers { 'content-type': 'application/json',
+32 verbose headers   'cache-control': 'max-age=60',
+32 verbose headers   'content-length': '95',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Fri, 23 Oct 2015 23:43:06 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-lax1428-LAX',
+32 verbose headers   'x-cache': 'MISS',
+32 verbose headers   'x-cache-hits': '0',
+32 verbose headers   'x-timer': 'S1445643785.904798,VS0,VE104' }
+33 verbose request invalidating /Users/lagden/.npm/registry.npmjs.org/io-cep on PUT
+34 error publish Failed PUT 403
+35 verbose stack Error: "You cannot publish over the previously published version 0.5.0." : io-cep
+35 verbose stack     at makeError (/Users/lagden/.npm-global/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+35 verbose stack     at CachingRegistryClient.<anonymous> (/Users/lagden/.npm-global/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:252:14)
+35 verbose stack     at Request._callback (/Users/lagden/.npm-global/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+35 verbose stack     at Request.self.callback (/Users/lagden/.npm-global/lib/node_modules/npm/node_modules/request/request.js:198:22)
+35 verbose stack     at emitTwo (events.js:87:13)
+35 verbose stack     at Request.emit (events.js:172:7)
+35 verbose stack     at Request.<anonymous> (/Users/lagden/.npm-global/lib/node_modules/npm/node_modules/request/request.js:1063:14)
+35 verbose stack     at emitOne (events.js:82:20)
+35 verbose stack     at Request.emit (events.js:169:7)
+35 verbose stack     at IncomingMessage.<anonymous> (/Users/lagden/.npm-global/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+36 verbose statusCode 403
+37 verbose pkgid io-cep
+38 verbose cwd /Users/lagden/webapps/htdocs/lab/js/module/io-cep
+39 error Darwin 14.5.0
+40 error argv "/usr/local/bin/iojs" "/Users/lagden/.npm-global/bin/npm" "publish"
+41 error node v4.2.1
+42 error npm  v3.3.5
+43 error code E403
+44 error "You cannot publish over the previously published version 0.5.0." : io-cep
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
