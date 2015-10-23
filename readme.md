@@ -1,4 +1,8 @@
-# io-cep [![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=master)](https://travis-ci.org/lagden/io-cep) [![Awesome](http://cdn.lagden.in/awesome/badge.svg)](https://github.com/lagden/awesome-nodejs)
+# io-cep
+[![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)
+[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=master)](https://travis-ci.org/lagden/io-cep)
+[![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep) 
+[![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)
 
 > Search address using zip code through Correios
 
@@ -6,13 +10,13 @@
 ## Install
 
 ```
-$ npm i -S io-cep
+$ npm i --save-dev io-cep
 ```
 
 
 ## Usage
 
-```js
+```javascript
 var consulta = require('io-cep');
 
 consulta('01310-940')

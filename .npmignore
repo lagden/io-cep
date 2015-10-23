@@ -1,9 +1,9 @@
 test
-es6
 .editorconfig
 .git*
 .jshintrc
 .travis*
+.nyc*
 
 # don't ignore .npmignore files
 # these are used in some tests.
