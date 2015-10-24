@@ -7,7 +7,8 @@ const utility = require('./lib/utility');
 const parse = utility.parse;
 const cleanup = utility.cleanup;
 
-function getData(message, cep, success = false) {
+function getData(message, cep, success) {
+	success = success || false;
 	return {success, message, cep};
 }
 
@@ -40,7 +41,8 @@ function falha(err, cep) {
  *
  * @param {string} cep
  */
-function consulta(cep, timeout = 10000) {
+function consulta(cep, timeout) {
+	timeout = timeout || 10000;
 	if (typeof cep !== 'string') {
 		return Promise.reject('Must be a string');
 	}

@@ -1,6 +1,6 @@
 # io-cep
 [![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)
-[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=0.5.2)](https://travis-ci.org/lagden/io-cep)
+[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=0.5.3)](https://travis-ci.org/lagden/io-cep)
 [![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep) 
 [![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)
 
