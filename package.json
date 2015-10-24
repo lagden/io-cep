@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Search address using zip code through Correios",
   "keywords": [
     "cep",
@@ -33,7 +33,8 @@
   "dependencies": {
     "cheerio": "^0.19.0",
     "got": "^5.0.0",
-    "iconv-lite": "^0.4.11"
+    "iconv-lite": "^0.4.11",
+    "slug": "^0.9.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",
@@ -71,7 +72,8 @@
           "newIsCap": true,
           "capIsNew": false
         }
-      ]
+      ],
+      "lines-around-comment": 0
     }
   }
 }

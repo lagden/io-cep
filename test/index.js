@@ -5,10 +5,18 @@ const assert = require('assert');
 const ioCep = require('../');
 
 describe('ioCep', () => {
-	it('ok', done => {
-		ioCep('75569970').then(r => {
+	it('endereço', done => {
+		ioCep('Praça Três Poderes').then(r => {
 			assert.ok(r.success);
-			assert.equal(r.logradouro, 'Praça Três Poderes');
+			assert.equal(r.dados[0].cep, '75569970');
+			done();
+		});
+	});
+
+	it('cep', done => {
+		ioCep('09715-295').then(r => {
+			assert.ok(r.success);
+			assert.equal(r.dados[0].logradouro, 'Rua Primo Modolin');
 			done();
 		});
 	});
@@ -16,7 +24,7 @@ describe('ioCep', () => {
 	it('not found', done => {
 		ioCep('00000-000').then(r => {
 			assert.strictEqual(r.success, false);
-			assert.equal(r.message, 'CEP não encontrado ou erro de análise');
+			assert.equal(r.message, 'Dados não encontrado ou erro de análise');
 			done();
 		});
 	});
@@ -24,13 +32,6 @@ describe('ioCep', () => {
 	it('string', done => {
 		ioCep(13109400).catch(err => {
 			assert.equal(err, 'Utilize string');
-			done();
-		});
-	});
-
-	it('format', done => {
-		ioCep('1310').catch(err => {
-			assert.equal(err, 'Formato inválido');
 			done();
 		});
 	});
