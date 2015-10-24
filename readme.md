@@ -5,7 +5,7 @@
 [![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep)
 [![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)
 
-> Search address using zip code through Correios
+> Procurar endereço utilizando o código postal(CEP) através Correios
 
 
 ## Install
@@ -27,12 +27,11 @@ consulta('01310-940')
       //=> Avenida Paulista
     } else {
       process.stdout.write(res.message + '\n');
-      //=> CEP not found or parse error.
+      //=> CEP não encontrado ou erro de análise.
     }
   })
   .catch(function(err){
     process.stdout.write(err + '\n');
-    //=> CEP must be a string
   });
 });
 ```
@@ -47,7 +46,7 @@ consulta('01310-940')
 *Required*  
 Type: `string`
 
-zip address
+Código de Endereçamento Postal (CEP)
 
 
 ## License
