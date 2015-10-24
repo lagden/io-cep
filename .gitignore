@@ -1,5 +1,5 @@
 node_modules
-.nyc*
+coverage
 
 # Others
 cgi-bin

@@ -26,14 +26,14 @@ function sucesso(res, cep) {
 			}
 			data = newData;
 		} else {
-			data.message = 'CEP not found or parse error';
+			data.message = 'CEP não encontrado ou erro de análise';
 		}
 	}
 	return Promise.resolve(data);
 }
 
 function falha(err, cep) {
-	return Promise.resolve(getData(err, cep));
+	return Promise.reject(getData(err, cep));
 }
 
 /**
@@ -41,13 +41,14 @@ function falha(err, cep) {
  *
  * @param {string} cep
  */
-function consulta(cep, timeout) {
+function consulta(cep, timeout, retries) {
 	timeout = timeout || 10000;
+	retries = retries || 10;
 	if (typeof cep !== 'string') {
-		return Promise.reject('Must be a string');
+		return Promise.reject('Utilize string');
 	}
 	if (/^(\d{5})\-?(\d{3})$/.test(cep) === false) {
-		return Promise.reject('Invalid format');
+		return Promise.reject('Formato inválido');
 	}
 	const formData = {
 		body: {
@@ -56,7 +57,8 @@ function consulta(cep, timeout) {
 			cepTemp: '',
 			metodo: 'buscarCep'
 		},
-		timeout
+		timeout,
+		retries
 	};
 	return got
 		.post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData)

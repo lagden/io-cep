@@ -1,7 +1,8 @@
 # io-cep
 [![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)
-[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=0.5.3)](https://travis-ci.org/lagden/io-cep)
-[![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep) 
+[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=1.0.0)](https://travis-ci.org/lagden/io-cep)
+[![Coverage Status](https://coveralls.io/repos/lagden/io-cep/badge.svg?branch=master&service=github)](https://coveralls.io/github/lagden/io-cep?branch=master)
+[![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep)
 [![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)
 
 > Search address using zip code through Correios

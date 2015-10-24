@@ -1,32 +1,45 @@
+/* global describe, it */
 'use strict';
 
-import test from 'ava';
-import ioCep from '../';
+const assert = require('assert');
+const ioCep = require('../');
 
-test('ok', async t => {
-	const res = await ioCep('04653-055');
-	t.true(res.success);
-	t.same(res.logradouro, 'Rua Amália Cerelo Godespoti');
-});
+describe('ioCep', () => {
+	it('ok', done => {
+		ioCep('75569970').then(r => {
+			assert.ok(r.success);
+			assert.equal(r.logradouro, 'Praça Três Poderes');
+			done();
+		});
+	});
 
-test('not found', async t => {
-	const res = await ioCep('00000-000');
-	t.false(res.success);
-	t.same(res.message, 'CEP not found or parse error');
-});
+	it('not found', done => {
+		ioCep('00000-000').then(r => {
+			assert.strictEqual(r.success, false);
+			assert.equal(r.message, 'CEP não encontrado ou erro de análise');
+			done();
+		});
+	});
 
-test('string', async t => {
-	try {
-		await ioCep(1310940);
-	} catch (err) {
-		t.is(err, 'Must be a string');
-	}
-});
+	it('string', done => {
+		ioCep(13109400).catch(err => {
+			assert.equal(err, 'Utilize string');
+			done();
+		});
+	});
 
-test('format', async t => {
-	try {
-		await ioCep('1310');
-	} catch (err) {
-		t.is(err, 'Invalid format');
-	}
+	it('format', done => {
+		ioCep('1310').catch(err => {
+			assert.equal(err, 'Formato inválido');
+			done();
+		});
+	});
+
+	it('falha', done => {
+		ioCep('04653055', 2, 1).catch(err => {
+			assert.strictEqual(err.success, false);
+			assert.strictEqual(err.message.code, 'ETIMEDOUT');
+			done();
+		});
+	});
 });

@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "0.5.3",
+  "version": "1.0.0",
   "description": "Search address using zip code through Correios",
   "keywords": [
     "cep",
@@ -25,8 +25,9 @@
   },
   "repository": "lagden/io-cep",
   "scripts": {
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "pretest": "xo",
-    "test": "nyc ava",
+    "test": "istanbul cover _mocha --report lcovonly -- -R spec -t 5000",
     "start": "watch xo"
   },
   "dependencies": {
@@ -35,8 +36,10 @@
     "iconv-lite": "^0.4.11"
   },
   "devDependencies": {
-    "ava": "^0.2.0",
-    "nyc": "^3.2.2",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3",
+    "mocha-lcov-reporter": "^1.0.0",
     "watch": "^0.16.0",
     "xo": "^0.10.0"
   },
