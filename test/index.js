@@ -22,9 +22,9 @@ describe('ioCep', () => {
 	});
 
 	it('not found', done => {
-		ioCep('00000-000').then(r => {
-			assert.strictEqual(r.success, false);
-			assert.equal(r.message, 'Dados não encontrado ou erro de análise');
+		ioCep('00000-000').catch(err => {
+			assert.strictEqual(err.success, false);
+			assert.equal(err.message, 'Dados não encontrado ou erro de análise');
 			done();
 		});
 	});
@@ -37,9 +37,9 @@ describe('ioCep', () => {
 	});
 
 	it('falha', done => {
-		ioCep('04653055', 2, 1).catch(err => {
+		ioCep('04653055', 1, 1).catch(err => {
 			assert.strictEqual(err.success, false);
-			assert.strictEqual(err.message.code, 'ETIMEDOUT');
+			assert.strictEqual(err.code, 'ETIMEDOUT');
 			done();
 		});
 	});

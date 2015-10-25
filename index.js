@@ -19,6 +19,19 @@ function getData(message, req, success, dados) {
 	};
 }
 
+function falha(err, req) {
+	if (typeof err === 'string') {
+		err = getData(err, req);
+	} else {
+		err.success = false;
+	}
+	return Promise.reject(err);
+}
+
+function sucesso(data) {
+	return Promise.resolve(data);
+}
+
 function fixData(dado) {
 	dado = cleanup(dado, 'logradouro');
 	dado = cleanup(dado, 'endere\u00E7o');
@@ -27,8 +40,9 @@ function fixData(dado) {
 	}
 }
 
-function sucesso(res, req) {
-	const data = getData(`Status code is ${res.statusCode}`, req);
+function before(res, req) {
+	const data = getData('Falha na requisição', req);
+	data.code = res.statusCode;
 	if (res.statusCode === 200) {
 		const dados = parse(iconv.decode(res._buffer, 'iso-8859-1'));
 		if (dados.length > 0) {
@@ -38,15 +52,11 @@ function sucesso(res, req) {
 				fixData(dado);
 			}
 			data.dados = dados;
-		} else {
-			data.message = 'Dados não encontrado ou erro de análise';
+			return sucesso(data);
 		}
+		data.message = 'Dados não encontrado ou erro de análise';
 	}
-	return Promise.resolve(data);
-}
-
-function falha(err, req) {
-	return Promise.reject(getData(err, req));
+	return falha(data, req, true);
 }
 
 /**
@@ -55,8 +65,8 @@ function falha(err, req) {
  * @param {string} req
  */
 function consulta(req, timeout, retries) {
-	timeout = timeout || 10000;
-	retries = retries || 10;
+	timeout = timeout || 5000;
+	retries = retries || 2;
 	if (typeof req !== 'string') {
 		return Promise.reject('Utilize string');
 	}
@@ -78,7 +88,7 @@ function consulta(req, timeout, retries) {
 	};
 	return got
 		.post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData)
-		.then(res => sucesso(res, req))
+		.then(res => before(res, req))
 		.catch(err => falha(err, req));
 }
 

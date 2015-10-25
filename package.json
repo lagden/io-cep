@@ -1,7 +1,7 @@
 {
   "name": "io-cep",
-  "version": "2.0.0",
-  "description": "Search address using zip code through Correios",
+  "version": "2.1.0",
+  "description": "Busca por informações de uma localidade através do endereço ou CEP utilizando os Correios",
   "keywords": [
     "cep",
     "lib",
