@@ -1,11 +1,10 @@
-# io-cep
-[![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)
+# io-cep [![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)
 [![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=2.0.0)](https://travis-ci.org/lagden/io-cep)
 [![Coverage Status](https://coveralls.io/repos/lagden/io-cep/badge.svg?branch=master&service=github)](https://coveralls.io/github/lagden/io-cep?branch=master)
 [![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep)
 [![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)
 
-> Busca por endereço ou Código de Endereçamento Postal(CEP) através dos Correios
+> Busca por endereço ou CEP de um local utilizando os [Correios](http://www.correios.com.br/)
 
 
 ## Install
