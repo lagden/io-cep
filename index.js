@@ -49,6 +49,7 @@ function before(res, req) {
 				fixData(dado);
 			}
 			data.dados = dados;
+			data.message = 'OK';
 			return sucesso(data);
 		}
 		data.message = 'Dados não encontrado ou erro de análise';
