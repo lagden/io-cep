@@ -20,11 +20,8 @@ function getData(message, req, success, dados) {
 }
 
 function falha(err, req) {
-	if (typeof err === 'string') {
-		err = getData(err, req);
-	} else {
-		err.success = false;
-	}
+	err.success = false;
+	err.req = req;
 	return Promise.reject(err);
 }
 
@@ -65,7 +62,7 @@ function before(res, req) {
  * @param {string} req
  */
 function consulta(req, timeout, retries) {
-	timeout = timeout || 5000;
+	timeout = timeout || 2500;
 	retries = retries || 2;
 	if (typeof req !== 'string') {
 		return Promise.reject('Utilize string');

@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Busca por informações de uma localidade através do endereço ou CEP utilizando os Correios",
   "keywords": [
     "cep",
@@ -27,7 +27,7 @@
   "scripts": {
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "pretest": "xo",
-    "test": "istanbul cover _mocha --report lcovonly -- -R spec -t 5000",
+    "test": "istanbul cover _mocha -- -R spec -t 6000",
     "start": "watch xo"
   },
   "dependencies": {
