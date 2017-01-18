@@ -1,6 +1,6 @@
 {
   "name": "io-cep",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Busca por informações de uma localidade através do endereço ou CEP utilizando os Correios",
   "keywords": [
     "cep",
@@ -22,8 +22,8 @@
   "main": "index.js",
   "files": [
     "index.js",
-    "lib"
-    "license"
+    "lib",
+    "license",
     "readme.md"
   ],
   "repository": "lagden/io-cep",

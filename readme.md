@@ -1,38 +1,49 @@
-# io-cep [![NPM version](https://img.shields.io/npm/v/io-cep.svg)](https://www.npmjs.com/package/io-cep)
-[![Build Status](https://travis-ci.org/lagden/io-cep.svg?branch=master)](https://travis-ci.org/lagden/io-cep)
-[![Coverage Status](https://coveralls.io/repos/lagden/io-cep/badge.svg?branch=master&service=github)](https://coveralls.io/github/lagden/io-cep?branch=master)
-[![Dependency Status](https://david-dm.org/lagden/io-cep.svg)](https://david-dm.org/lagden/io-cep)
-[![devDependency Status](https://david-dm.org/lagden/io-cep/dev-status.svg)](https://david-dm.org/lagden/io-cep#info=devDependencies)
+# io-cep
 
-> Busca por informações de uma localidade através do endereço ou CEP utilizando os [Correios](http://www.correios.com.br/)
+[![NPM version][npm-img]][npm]
+[![Build Status][ci-img]][ci]
+[![Coverage Status][coveralls-img]][coveralls]
+[![devDependency Status][devDep-img]][devDep]
+[![XO code style][xo-img]][xo]
+
+[npm-img]:       https://img.shields.io/npm/v/io-cep.svg
+[npm]:           https://www.npmjs.com/package/io-cep
+[ci-img]:        https://travis-ci.org/lagden/io-cep.svg
+[ci]:            https://travis-ci.org/lagden/io-cep
+[coveralls-img]: https://coveralls.io/repos/github/lagden/io-cep/badge.svg?branch=master
+[coveralls]:     https://coveralls.io/github/lagden/io-cep?branch=master
+[devDep-img]:    https://david-dm.org/lagden/io-cep/dev-status.svg
+[devDep]:        https://david-dm.org/lagden/io-cep#info=devDependencies
+[xo-img]:        https://img.shields.io/badge/code_style-XO-5ed9c7.svg
+[xo]:            https://github.com/sindresorhus/xo
+
+
+Busca por informações de uma localidade através do endereço ou CEP utilizando os [Correios](http://www.correios.com.br/)
 
 
 ## Install
 
 ```
-$ npm i --save-dev io-cep
+$ npm i -S io-cep
 ```
 
 
 ## Usage
 
 ```javascript
-var consulta = require('io-cep');
+const consulta = require('io-cep')
 
-consulta('01310-940')
-  .then(function(res){
-    if(res.success) {
-      process.stdout.write(res.dados[0].logradouro + '\n');
-      //=> Avenida Paulista
+consulta(01310940)
+  .then(res => {
+    if (res.success) {
+      console.log(res.dados[0].logradouro) // Avenida Paulista
     } else {
-      process.stdout.write(res.message + '\n');
-      //=> Dados não encontrado ou erro de análise.
+      console.log(res.message) // Dados não encontrado ou erro de análise.
     }
   })
-  .catch(function(err){
-    process.stdout.write(err + '\n');
-  });
-});
+  .catch(err => {
+    console.log(err)
+  })
 ```
 
 
