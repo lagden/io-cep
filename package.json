@@ -20,9 +20,12 @@
     "url": "http://lagden.in"
   },
   "main": "index.js",
-  "directories": {
-    "lib": "./lib"
-  },
+  "files": [
+    "index.js",
+    "lib"
+    "license"
+    "readme.md"
+  ],
   "repository": "lagden/io-cep",
   "scripts": {
     "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
