@@ -1,93 +1,80 @@
-'use strict';
+'use strict'
 
-const got = require('got');
-const slug = require('slug');
-const iconv = require('iconv-lite');
-const utility = require('./lib/utility');
+const got = require('got')
+const slug = require('slug')
+const iconv = require('iconv-lite')
+const utility = require('./lib/utility')
 
-const parse = utility.parse;
-const cleanup = utility.cleanup;
+const parse = utility.parse
+const cleanup = utility.cleanup
 
-function getData(message, req, success, dados) {
-	success = success || false;
-	dados = dados || [];
+function response(message, req, success = false, dados = []) {
 	return {
 		success,
 		message,
 		req,
 		dados
-	};
+	}
 }
 
 function falha(err, req) {
-	err.success = false;
-	err.req = req;
-	return Promise.reject(err);
-}
-
-function sucesso(data) {
-	return Promise.resolve(data);
+	return Promise.reject({
+		success: false,
+		request: req,
+		message: err.message,
+		code: err.code
+	})
 }
 
 function fixData(dado) {
-	dado = cleanup(dado, 'logradouro');
-	dado = cleanup(dado, 'endere\u00E7o');
-	if (dado.hasOwnProperty('endere\u00E7o')) {
-		dado.logradouro = dado['endere\u00E7o'];
+	dado = cleanup(dado, 'logradouro')
+	dado = cleanup(dado, 'endere\u00E7o')
+	if (dado['endere\u00E7o']) {
+		dado.logradouro = dado['endere\u00E7o']
 	}
 }
 
-function before(res, req) {
-	const data = getData('Falha na requisição', req);
-	data.code = res.statusCode;
+function sucesso(res, req) {
+	const data = response('Falha na requisição', req)
+	data.code = res.statusCode
 	if (res.statusCode === 200) {
-		const dados = parse(iconv.decode(res._buffer, 'iso-8859-1'));
-		if (dados.length > 0) {
-			data.success = true;
-			data.req = req;
+		const dados = parse(iconv.decode(res.body, 'iso-8859-1'))
+		if (dados && dados.length > 0) {
+			data.success = true
+			data.request = req
 			for (const dado of dados) {
-				fixData(dado);
+				fixData(dado)
 			}
-			data.dados = dados;
-			data.message = 'OK';
-			return sucesso(data);
+			data.dados = dados
+			data.message = 'OK'
+			return Promise.resolve(data)
 		}
-		data.message = 'Dados não encontrado ou erro de análise';
+		data.message = 'Dados não encontrado ou erro de análise'
 	}
-	return falha(data, req, true);
+	return falha(data, req)
 }
 
-/**
- * Consulta.
- *
- * @param {string} req
- */
-function consulta(req, timeout, retries) {
-	timeout = timeout || 2500;
-	retries = retries || 2;
-	if (typeof req !== 'string') {
-		return Promise.reject('Utilize string');
-	}
-	const slugOpts = {
+function consulta(req, timeout = 5000, retries = 2) {
+	const input = slug(String(req), {
 		lowercase: false,
 		replacement: ' ',
 		remove: /[-]/g
-	};
-	req = slug(req, slugOpts);
+	})
 	const formData = {
 		body: {
-			cepEntrada: req,
+			cepEntrada: input,
 			tipoCep: '',
 			cepTemp: '',
 			metodo: 'buscarCep'
 		},
+		encoding: null,
 		timeout,
 		retries
-	};
+	}
 	return got
 		.post('http://m.correios.com.br/movel/buscaCepConfirma.do', formData)
-		.then(res => before(res, req))
-		.catch(err => falha(err, req));
+		.then(res => sucesso(res, req))
+		.catch(err => falha(err, req))
 }
 
-module.exports = consulta;
+module.exports = consulta
